@@ -32,4 +32,11 @@ MCAL_Layer/ADC/hal_adc_cfg.h  \
 MCAL_Layer/Timer0/hal_timer0.h  \
 MCAL_Layer/Timer1/hal_timer1.h  \
 MCAL_Layer/Timer2/hal_timer2.h  \
-MCAL_Layer/Timer3/hal_timer3.h 
+MCAL_Layer/Timer3/hal_timer3.h  \
+MCAL_Layer/CCP/hal_ccp.h  \
+MCAL_Layer/CCP/hal_cpp_cfg.h  \
+MCAL_Layer/usart/hal_usart.h  \
+MCAL_Layer/usart/hal_usart_cfg.h  \
+MCAL_Layer/SPI/hal_spi.h  \
+MCAL_Layer/SPI/hal_spi_cfg.h  \
+MCAL_Layer/I2C/hal_i2c.h 

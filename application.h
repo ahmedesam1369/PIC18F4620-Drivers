@@ -19,6 +19,11 @@
 #include "MCAL_Layer/Timer1/hal_timer1.h"
 #include "MCAL_Layer/Timer2/hal_timer2.h"
 #include "MCAL_Layer/Timer3/hal_timer3.h"
+#include "MCAL_Layer/CCP/hal_ccp.h"
+#include "MCAL_Layer/usart/hal_usart.h"
+#include "MCAL_Layer/SPI/hal_spi.h"
+#include "MCAL_Layer/I2C/hal_i2c.h"
+
 /* Section: Macro Declarations */
 
 /* Section: Macro Functions Declarations */

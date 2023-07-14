@@ -16,6 +16,9 @@
 #include "../Timer1/hal_timer1.h"
 #include "../Timer2/hal_timer2.h"
 #include "../Timer3/hal_timer3.h"
+#include "../CCP/hal_ccp.h"
+#include "../usart/hal_usart.h"
+#include "../I2C/hal_i2c.h"
 /* ---------------------------  Macro Declarations  ---------------------------*/
 
 /* ----------------------  Macro Functions Declarations  ----------------------*/

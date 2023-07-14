@@ -28,7 +28,7 @@
 #define  TIMER2_POSTSCALLER_DIV_BY_11   10
 #define  TIMER2_POSTSCALLER_DIV_BY_12   11
 #define  TIMER2_POSTSCALLER_DIV_BY_13   12
-#define  TIMER2_POSTSCALLER_DIV_BY_14   12
+#define  TIMER2_POSTSCALLER_DIV_BY_14   13
 #define  TIMER2_POSTSCALLER_DIV_BY_15   14
 #define  TIMER2_POSTSCALLER_DIV_BY_16   15
 /* Section: Macro Functions Declarations */
@@ -45,10 +45,10 @@ typedef struct{
     void (* Timer2_InterruptHandler)(void);
     interrupt_priority_cfg priority;
 #endif
-    uint8 timer1_preload_value;
-    uint8  timer1_postscaler_value : 4;
-    uint8  timer1_prescaler_value : 2;
-    uint8  timer1_reserved     : 2;
+    uint8  timer2_preload_value;
+    uint8  timer2_postscaler_value : 4;
+    uint8  timer2_prescaler_value : 2;
+    uint8  timer2_reserved     : 2;
 }timer2_t;
 
 /* Section : Software Interfaces  Declarations */

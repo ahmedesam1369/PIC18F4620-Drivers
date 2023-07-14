@@ -17,10 +17,10 @@ Std_ReturnType Timer2_Init(const timer2_t *_timer){
         ret = E_NOT_OK;
     }else{
      TIMER2_MODULE_DISABLE();   
-    TIMER2_PRESCALER_SELECT(_timer->timer1_prescaler_value);
-    TIMER2_POSTSCALER_SELECT(_timer->timer1_postscaler_value);
-    TMR2 = _timer->timer1_preload_value;
-    timer2_preload = _timer->timer1_preload_value;
+    TIMER2_PRESCALER_SELECT(_timer->timer2_prescaler_value);
+    TIMER2_POSTSCALER_SELECT(_timer->timer2_postscaler_value);
+    TMR2 = _timer->timer2_preload_value;
+    timer2_preload = _timer->timer2_preload_value;
         
 #if TIMER2_INTERRUPT_FEATURE_ENABLE == INTERRUPT_FEATURE_ENABLE  
        TIMER2_InterruptEnable();

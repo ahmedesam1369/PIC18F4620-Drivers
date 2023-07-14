@@ -4,12 +4,12 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
             <name>Interface_Drivers</name>
-            <creation-uuid>d230dac2-8009-4ebf-87b1-3961c512785e</creation-uuid>
+            <creation-uuid>9a864c94-4bb6-4add-b4c2-6b99e4769eb8</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
             <sourceRootList>
-                <sourceRootElem/>
+                <sourceRootElem>.</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

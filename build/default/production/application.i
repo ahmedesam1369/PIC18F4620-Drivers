@@ -5159,10 +5159,10 @@ typedef struct{
     void (* Timer2_InterruptHandler)(void);
     interrupt_priority_cfg priority;
 
-    uint8 timer1_preload_value;
-    uint8 timer1_postscaler_value : 4;
-    uint8 timer1_prescaler_value : 2;
-    uint8 timer1_reserved : 2;
+    uint8 timer2_preload_value;
+    uint8 timer2_postscaler_value : 4;
+    uint8 timer2_prescaler_value : 2;
+    uint8 timer2_reserved : 2;
 }timer2_t;
 
 
@@ -5197,38 +5197,298 @@ Std_ReturnType Timer3_Read_Value(const timer3_t *_timer, uint16 *_value);
 
 void TIMER3_ISR(void);
 # 21 "./application.h" 2
-# 30 "./application.h"
+
+# 1 "./MCAL_Layer/CCP/hal_ccp.h" 1
+# 11 "./MCAL_Layer/CCP/hal_ccp.h"
+# 1 "./MCAL_Layer/CCP/hal_cpp_cfg.h" 1
+# 11 "./MCAL_Layer/CCP/hal_ccp.h" 2
+# 60 "./MCAL_Layer/CCP/hal_ccp.h"
+typedef union{
+    struct{
+        uint8 ccp_low;
+        uint8 ccp_high;
+    };
+    struct{
+        uint16 ccp_16Bit;
+    };
+}CCP_REG_T;
+
+typedef enum{
+    CCP_CAPTURE_MODE_SELECTED = 0,
+    CCP_COMPARE_MODE_SELECTED,
+    CCP_PWM_MODE_SELECTED
+}ccp_mode_t;
+
+typedef enum{
+    CCP1_INST = 0,
+    CCP2_INST
+}ccp_inst_t;
+
+typedef enum{
+    CCP1_CCP2_TIMER3 = 0,
+    CCP1_TIMER1_CCP2_TIMER3,
+    CCP1_CCP2_TIMER1
+}cpp_capture_timer_t;
+
+typedef struct{
+    ccp_inst_t cpp_inst;
+    ccp_mode_t ccp_mode;
+    uint8 ccp_mode_variant;
+    pin_config_t ccp_pin;
+    cpp_capture_timer_t cpp_capture_timer;
+
+
+        void (* CCP1_InterruptHandler)(void);
+        interrupt_priority_cfg CCP1_priority;
+
+
+        void (* CCP2_InterruptHandler)(void);
+        interrupt_priority_cfg CCP2_priority;
+
+
+
+
+
+
+
+}ccp_t;
+
+
+
+Std_ReturnType CCP_Init(const ccp_t *_ccp_obj);
+Std_ReturnType CCP_DeInit(const ccp_t *_ccp_obj);
+
+
+
+
+
+
+Std_ReturnType CCP_IsCompareComplete(const ccp_t *_ccp_obj, uint8 * _compare_status);
+Std_ReturnType CCP_CompareModeSetValue (const ccp_t *_ccp_obj, uint16 compare_value);
+
+
+
+
+
+
+
+void CCP1_ISR(void);
+void CCP2_ISR(void);
+# 22 "./application.h" 2
+
+# 1 "./MCAL_Layer/usart/hal_usart.h" 1
+# 10 "./MCAL_Layer/usart/hal_usart.h"
+# 1 "./MCAL_Layer/usart/hal_usart_cfg.h" 1
+# 10 "./MCAL_Layer/usart/hal_usart.h" 2
+# 51 "./MCAL_Layer/usart/hal_usart.h"
+typedef enum{
+    BAUDRATE_ASYNC_8BIT_LOW_SPEED,
+    BAUDRATE_ASYNC_8BIT_HIGH_SPEED,
+    BAUDRATE_ASYNC_16BIT_LOW_SPEED,
+    BAUDRATE_ASYNC_16BIT_HIGH_SPEED,
+    BAUDRATE_SYNC_8BIT,
+    BAUDRATE_SYNC_16BIT
+}baudrate_gen_t;
+
+typedef struct{
+    uint8 usart_tx_enable: 1;
+    uint8 usart_tx_interrupt_enable : 1;
+    uint8 usart_tx_9bit_enable : 1;
+    uint8 usart_tx_reserved: 5;
+    interrupt_priority_cfg usart_tx_int_priority;
+}usart_tx_cfg_t;
+typedef struct{
+    uint8 usart_rx_enable: 1;
+    uint8 usart_rx_interrupt_enable : 1;
+    uint8 usart_rx_9bit_enable : 1;
+    uint8 usart_tx_reserved: 5;
+    interrupt_priority_cfg usart_rx_int_priority;
+}usart_rx_cfg_t;
+
+typedef union{
+    struct{
+    uint8 usart_ferr: 1;
+    uint8 usart_oerr: 1;
+    uint8 usart_reserved: 1;
+    };
+    uint8 status;
+}usart_error_status_t;
+
+typedef struct{
+    uint32 baudrate;
+    uint8 baudrate_mode;
+    baudrate_gen_t baudrate_gen_config;
+    usart_tx_cfg_t usart_tx_cfg;
+    usart_rx_cfg_t usart_rx_cfg;
+    usart_error_status_t error_status;
+    void (*EUSART_TXDefaultInterruptHandler)(void);
+    void (*EUSART_RXDefaultInterruptHandler)(void);
+    void (*EUSART_FramingErrorHandler)(void);
+    void (*EUSART_OverrunErrorHandler)(void);
+}usart_t;
+
+
+Std_ReturnType EUSART_ASYNC_Init(const usart_t *_eusart);
+Std_ReturnType EUSART_ASYNC_DeInit(const usart_t *_eusart);
+
+Std_ReturnType EUSART_ASYNC_ReadByteBlocking(uint8 *_data);
+Std_ReturnType EUSART_ASYNC_ReadByteNonBlocking(uint8 *_data);
+Std_ReturnType EUSART_ASYNC_RX_Restart(void);
+
+Std_ReturnType EUSART_ASYNC_WriteByteBlocking(uint8 _data);
+Std_ReturnType EUSART_ASYNC_WriteStringeBlocking(uint8 *_data, uint16 str_len);
+
+
+
+Std_ReturnType EUSART_ASYNC_WriteByteNonBlocking(uint8 _data);
+Std_ReturnType EUSART_ASYNC_WriteStringeNonBlocking(uint8 *_data, uint16 str_len);
+
+void EUSART_TX_ISR(void);
+void EUSART_RX_ISR(void);
+void EUSART_FRAMIN_ERROR_ISR(void);
+void EUSART_OVERRUN_ERROR_ISR(void);
+# 23 "./application.h" 2
+
+# 1 "./MCAL_Layer/SPI/hal_spi.h" 1
+# 11 "./MCAL_Layer/SPI/hal_spi.h"
+# 1 "./MCAL_Layer/SPI/hal_spi_cfg.h" 1
+# 11 "./MCAL_Layer/SPI/hal_spi.h" 2
+# 42 "./MCAL_Layer/SPI/hal_spi.h"
+typedef enum{
+    SPI_MASTER_MODE_FOSC_DIV_4 = 0,
+    SPI_MASTER_MODE_FOSC_DIV_16 ,
+    SPI_MASTER_MODE_FOSC_DIV_64,
+    SPI_MASTER_MODE_FOSC_TMR2_OUTPUT_DIV_4,
+    SPI_SLAVE_MODE_SS_ENABLED,
+    SPI_SLAVE_MODE_SS_DISABLED,
+}mode_select_t;
+
+typedef struct{
+    mode_select_t mode;
+    uint8 clock_active_idle;
+    uint8 sample;
+    uint8 clock_polarity;
+}spi_t;
+
+Std_ReturnType SPI_Init(const spi_t *_spi);
+
+Std_ReturnType SPI_DeInit(const spi_t *_spi);
+
+Std_ReturnType SPI_ReadByteBlocking(uint8 *_data);
+Std_ReturnType SPI_ReadByteNotBlocking(uint8 *_data);
+
+Std_ReturnType SPI_WriteByteBlocking(uint8 _data);
+Std_ReturnType SPI_WriteByteNotBlocking(uint8 _data);
+
+Std_ReturnType SPI_WriteStringeBlocking(uint8 *_data, uint16 str_len);
+Std_ReturnType SPI_WriteStringeNotBlocking(uint8 *_data, uint16 str_len);
+# 24 "./application.h" 2
+
+# 1 "./MCAL_Layer/I2C/hal_i2c.h" 1
+# 69 "./MCAL_Layer/I2C/hal_i2c.h"
+typedef struct{
+    uint8 i2c_slave_address;
+    uint8 i2c_mode_cfg;
+    uint8 i2c_mode : 1;
+    uint8 i2c_slew_rate : 1;
+    uint8 i2c_SMBus_control : 1;
+    uint8 i2c_general_call : 1;
+    uint8 i2c_master_rec_mode : 1;
+    uint8 i2c_reserved : 3;
+}i2c_configs_t;
+typedef struct{
+    uint32 i2c_clock;
+    i2c_configs_t i2c_cfg;
+
+        void (*I2C_DefaultInterruptHandler)(void);
+        interrupt_priority_cfg mssp_i2c_priority;
+        void (*I2C_Report_Write_Collision)(void);
+        interrupt_priority_cfg mssp_i2c_bc_priority;
+        void (*I2C_Report_Receive_Overflow)(void);
+
+
+}mssp_i2c_t;
+
+Std_ReturnType MSSP_I2C_Init(const mssp_i2c_t *i2c_obj);
+Std_ReturnType MSSP_I2C_DeInit(const mssp_i2c_t *i2c_obj);
+Std_ReturnType MSSP_I2C_Master_Send_Start(const mssp_i2c_t *i2c_obj);
+Std_ReturnType MSSP_I2C_Master_Send_Repeated_Start(const mssp_i2c_t *i2c_obj);
+Std_ReturnType MSSP_I2C_Master_Send_Stop(const mssp_i2c_t *i2c_obj);
+Std_ReturnType MSSP_I2C_Master_Write_Blocking(const mssp_i2c_t *i2c_obj, uint8 i2c_data, uint8 *ack);
+Std_ReturnType MSSP_I2C_Master_Read_Blocking(const mssp_i2c_t *i2c_obj, uint8 ack,uint8 *i2c_data);
+Std_ReturnType MSSP_I2C_SLAVE_Read_Write(const mssp_i2c_t *i2c_obj,uint8 *i2c_data);
+void MSSP_I2C_ISR(void);
+void MSSP_I2C_BUS_COL_ISR(void);
+# 25 "./application.h" 2
+# 35 "./application.h"
 void application_intialize(void);
 # 7 "application.c" 2
 
 
 
-extern led_t led1;
 
-volatile uint32 timer3_counter_on = 0;
-timer3_t timer3_counter_obj;
 
-void Timer3_DefaultInterruptHandler(void){
-    timer3_counter_on++;
-    led_turn_toggle(&led1);
+
+mssp_i2c_t i2c_obj;
+volatile uint8 slave_ack;
+
+
+uint32 app_counter;
+static volatile uint8 i2c_slave_1_rec, i2c_slave_2rec;
+void MSSP_I2C_DefaultInterruptHandler(){
+
+
+
+
+
+
+
+    MSSP_I2C_SLAVE_Read_Write(&i2c_obj, &i2c_slave_2rec);
+
+
 }
-
-
+void MSSP_I2C_Send_1Byte(uint8 slave_add, uint8 _data){
+    Std_ReturnType ret = (Std_ReturnType)0x00;
+    ret = MSSP_I2C_Master_Send_Start(&i2c_obj);
+    ret = MSSP_I2C_Master_Write_Blocking(&i2c_obj, slave_add, &slave_ack);
+    ret = MSSP_I2C_Master_Write_Blocking(&i2c_obj, _data, &slave_ack);
+    ret = MSSP_I2C_Master_Send_Stop(&i2c_obj);
+}
 
 int main() {
     Std_ReturnType ret = (Std_ReturnType)0x00;
     application_intialize();
+# 67 "application.c"
+   i2c_obj.i2c_cfg.i2c_mode = 0;
+    i2c_obj.i2c_cfg.i2c_slave_address = 0x62;
+    i2c_obj.i2c_cfg.i2c_mode_cfg = 0x06U;
+    i2c_obj.i2c_cfg.i2c_slew_rate = 1;
+    i2c_obj.i2c_cfg.i2c_SMBus_control = 0;
+    i2c_obj.i2c_cfg.i2c_general_call = 0;
 
-    timer3_counter_obj.Timer3_InterruptHandler = Timer3_DefaultInterruptHandler;
-    timer3_counter_obj.priority = INTERRUPT_LOW_PRIORITY;
-    timer3_counter_obj.timer3_prescaler_value = 3;
-    timer3_counter_obj.timer3_preload_value = 0;
-    timer3_counter_obj.timer3_mode = 0;
-    timer3_counter_obj.timer3_counter_mode = 1;
+    i2c_obj.I2C_DefaultInterruptHandler = MSSP_I2C_DefaultInterruptHandler;
+    i2c_obj.I2C_Report_Write_Collision = ((void*)0);
+    i2c_obj.I2C_Report_Receive_Overflow = ((void*)0);
 
-    ret = Timer3_Init(&timer3_counter_obj);
+
+
+
+
+    ret = MSSP_I2C_Init(&i2c_obj);
+
+    extern led_t led_D_0;
 
     while(1){
+        app_counter++;
+# 104 "application.c"
+        if(i2c_slave_2rec == 'b'){
+          led_turn_on(&led_D_0);
+        }else if(i2c_slave_2rec == 'd'){
+            led_turn_off(&led_D_0);
+        }else{}
+
+
+
 
     }
     return (0);
@@ -5238,5 +5498,4 @@ int main() {
 void application_intialize(void){
     Std_ReturnType ret = (Std_ReturnType)0x00;
     ecu_layer_initialize();
-
 }

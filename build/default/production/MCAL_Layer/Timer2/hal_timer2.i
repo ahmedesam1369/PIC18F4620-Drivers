@@ -4788,10 +4788,10 @@ typedef struct{
     void (* Timer2_InterruptHandler)(void);
     interrupt_priority_cfg priority;
 
-    uint8 timer1_preload_value;
-    uint8 timer1_postscaler_value : 4;
-    uint8 timer1_prescaler_value : 2;
-    uint8 timer1_reserved : 2;
+    uint8 timer2_preload_value;
+    uint8 timer2_postscaler_value : 4;
+    uint8 timer2_prescaler_value : 2;
+    uint8 timer2_reserved : 2;
 }timer2_t;
 
 
@@ -4815,10 +4815,10 @@ Std_ReturnType Timer2_Init(const timer2_t *_timer){
         ret = (Std_ReturnType)0x00;
     }else{
      (T2CONbits.TMR2ON = 0);
-    (T2CONbits.T2CKPS = _timer->timer1_prescaler_value);
-    (T2CONbits.TOUTPS = _timer->timer1_postscaler_value);
-    TMR2 = _timer->timer1_preload_value;
-    timer2_preload = _timer->timer1_preload_value;
+    (T2CONbits.T2CKPS = _timer->timer2_prescaler_value);
+    (T2CONbits.TOUTPS = _timer->timer2_postscaler_value);
+    TMR2 = _timer->timer2_preload_value;
+    timer2_preload = _timer->timer2_preload_value;
 
 
        (PIE1bits.TMR2IE = 1);

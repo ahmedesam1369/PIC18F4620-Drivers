@@ -4,7 +4,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [s S274 :4 `uc 1 :3 `uc 1 :1 `uc 1 ]
 [n S274 . port_name pin led_status ]
 "12 ECU_Layer/ecu_layer_init.c
-[; ;ECU_Layer/ecu_layer_init.c: 12: led_t led0 = {.port_name = PORTC_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
+[; ;ECU_Layer/ecu_layer_init.c: 12: led_t led_D_0 = {.port_name = PORTD_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
 [c E2983 0 1 2 3 4 .. ]
 [n E2983 . PORTA_INDEX PORTB_INDEX PORTC_INDEX PORTD_INDEX PORTE_INDEX  ]
 [c E2973 0 1 2 3 4 5 6 7 .. ]
@@ -447,12 +447,12 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files/Microchip/MPLABX/v6.05/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4620.h: 6716: __asm("TOSU equ 0FFFh");
 [; <" TOSU equ 0FFFh ;# ">
 "12 ECU_Layer/ecu_layer_init.c
-[; ;ECU_Layer/ecu_layer_init.c: 12: led_t led0 = {.port_name = PORTC_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
-[v _led0 `S274 ~T0 @X0 1 e ]
-[i _led0
+[; ;ECU_Layer/ecu_layer_init.c: 12: led_t led_D_0 = {.port_name = PORTD_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
+[v _led_D_0 `S274 ~T0 @X0 1 e ]
+[i _led_D_0
 :U ..
 :U ..
--> . `E2983 2 `uc
+-> . `E2983 3 `uc
 -> . `E2973 0 `uc
 -> . `E2965 0 `uc
 ..
@@ -546,9 +546,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 {
 [e :U _ecu_layer_initialize ]
 [f ]
-"52
-[; ;ECU_Layer/ecu_layer_init.c: 52:      led_initialize(&led1);
-[e ( _led_initialize (1 -> &U _led1 `*CS274 ]
+"51
+[; ;ECU_Layer/ecu_layer_init.c: 51:      led_initialize(&led_D_0);
+[e ( _led_initialize (1 -> &U _led_D_0 `*CS274 ]
 "53
 [; ;ECU_Layer/ecu_layer_init.c: 53: }
 [e :UE 282 ]

@@ -212,7 +212,57 @@ void __interrupt() InterruptManager(void){
     }else{
         /* Nothing */
     }
+
+//    CCP1 Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.CCP1IE) && (INTERRUPT_OCCUR == PIR1bits.CCP1IF)){
+        CCP1_ISR();
+    }else{
+        /* Nothing */
+    }
+//    CCP2 Interrupt 
+    if((INTERRUPT_ENABLE == PIE2bits.CCP2IE) && (INTERRUPT_OCCUR == PIR2bits.CCP2IF)){
+        CCP2_ISR();
+    }else{
+        /* Nothing */
+    } 
     
+//    TX EUSART Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.TXIE) && (INTERRUPT_OCCUR == PIR1bits.TXIF)){
+        EUSART_TX_ISR();
+    }else{
+        /* Nothing */
+    }
+//    RX EUSART Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.RCIE) && (INTERRUPT_OCCUR == PIR1bits.RCIF)){
+        EUSART_RX_ISR();
+    }else{
+        /* Nothing */
+    } 
+//    Overrun Error EUSART Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.RCIE) && (INTERRUPT_OCCUR == RCSTAbits.OERR)){
+        EUSART_OVERRUN_ERROR_ISR();
+    }else{
+        /* Nothing */
+    } 
+    
+//    Framing EUSART Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.RCIE) && (INTERRUPT_OCCUR == RCSTAbits.FERR)){
+        EUSART_FRAMIN_ERROR_ISR();
+    }else{
+        /* Nothing */
+    }
+    
+//    MSSP I2C Interrupt 
+    if((INTERRUPT_ENABLE == PIE1bits.SSPIE)){
+        if((INTERRUPT_OCCUR == PIR1bits.SSPIF)){
+            MSSP_I2C_ISR();
+        }else{/* Nothing */ }
+        if((INTERRUPT_OCCUR == PIR2bits.BCLIF)){
+            MSSP_I2C_BUS_COL_ISR();
+        }else{/* Nothing */ }   
+    }else{
+        /* Nothing */
+    }
 }
 
 #endif

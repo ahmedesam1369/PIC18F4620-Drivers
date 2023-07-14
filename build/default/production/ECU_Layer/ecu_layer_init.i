@@ -4955,7 +4955,7 @@ void ecu_layer_initialize(void);
 
 
 
-led_t led0 = {.port_name = PORTC_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
+led_t led_D_0 = {.port_name = PORTD_INDEX, .pin = GPIO_PIN0, .led_status = GPIO_LOW};
 led_t led1 = {.port_name = PORTC_INDEX, .pin = GPIO_PIN1, .led_status = GPIO_LOW};
 
 button_t btn_c2 = { .button_pin.port = PORTC_INDEX, .button_pin.pin = GPIO_PIN2,
@@ -4994,6 +4994,6 @@ chr_lcd_4bit_t lcd_1 = {
 
 void ecu_layer_initialize(void){
 
+     led_initialize(&led_D_0);
 
-     led_initialize(&led1);
 }

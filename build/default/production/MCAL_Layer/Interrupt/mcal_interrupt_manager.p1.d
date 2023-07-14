@@ -16,4 +16,9 @@ MCAL_Layer/Interrupt/../ADC/../Interrupt/mcal_internal_interrupt.h  \
 MCAL_Layer/Interrupt/../Timer0/hal_timer0.h  \
 MCAL_Layer/Interrupt/../Timer1/hal_timer1.h  \
 MCAL_Layer/Interrupt/../Timer2/hal_timer2.h  \
-MCAL_Layer/Interrupt/../Timer3/hal_timer3.h 
+MCAL_Layer/Interrupt/../Timer3/hal_timer3.h  \
+MCAL_Layer/Interrupt/../CCP/hal_ccp.h  \
+MCAL_Layer/Interrupt/../CCP/hal_cpp_cfg.h  \
+MCAL_Layer/Interrupt/../usart/hal_usart.h  \
+MCAL_Layer/Interrupt/../usart/hal_usart_cfg.h  \
+MCAL_Layer/Interrupt/../I2C/hal_i2c.h 
