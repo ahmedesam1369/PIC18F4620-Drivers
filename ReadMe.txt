@@ -1,10 +1,10 @@
-#Software Interface Drivers for PIC18F4620
+# Software Interface Drivers for PIC18F4620
 ##Based on layered architecture pattern
 ##There Are two main layers
 ##( 1 ) MCAL Layer
 Stands for Microcontroller Abstraction Layer
 Which interacts with the internal registers of PIC MCU directly
-> GPIO
+>GPIO
 > ADC
 > CCP
 > EEPROM
