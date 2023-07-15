@@ -3,7 +3,7 @@
 ##There Are two main layers
 ##( 1 ) MCAL Layer
 Stands for Microcontroller Abstraction Layer
-Which is interact with the internal registers of PIC MCU directly
+Which interacts with the internal registers of PIC MCU directly
 > GPIO
 > ADC
 > CCP
